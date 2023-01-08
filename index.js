@@ -7,6 +7,9 @@ const mongoose = require("mongoose");
 const serveur = express();
 //pour accepter le body JSON de Requete HTTP
 serveur.use(express.json());
+serveur.use(express.static("./"));
+//bibliotheque uplouad
+
 // connection au server de la base de données
 mongoose.set("strictQuery", false);
 mongoose.connect("mongodb://127.0.0.1:27017/Tayara", (erreur, success) => {
@@ -16,8 +19,6 @@ mongoose.connect("mongodb://127.0.0.1:27017/Tayara", (erreur, success) => {
     console.log("success");
   }
 });
-
-
 
 require("./apis")(serveur);
 

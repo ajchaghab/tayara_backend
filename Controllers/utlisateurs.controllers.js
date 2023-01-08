@@ -16,6 +16,8 @@ exports.details_Utilisateur = async (req, res) => {
 //ajouter Utilisateur
 
 exports.ajouter_Utilisateur = async (req, res) => {
+  
+  
   const resultat = new Utilisateur(req.body);
   resultat
     .save()

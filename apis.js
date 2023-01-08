@@ -1,4 +1,6 @@
 module.exports = (serveur) => {
+  var multipart = require("connect-multiparty");
+  var upload_produit = multipart({ uploadDir: "./uploads/produits" });
   //API Utilisateur
   const Utilisateur = require("./Controllers/utlisateurs.controllers");
   serveur.get("/utilsateur", Utilisateur.afficher);
@@ -16,10 +18,20 @@ module.exports = (serveur) => {
   serveur.put("/category/:_id", Category.modifier_Category);
   serveur.delete("/category/:_id", Category.delete_Category);
   //API Produits
-  const Produits = require("./Controllers/category.controllers ");
+  const Produits = require("./Controllers/produits.controllers");
   serveur.get("/produit", Produits.afficher);
-  serveur.get("/produit/:_id", Produits.details_Category);
-  serveur.post("/produit", Produits.ajouter_Category);
-  serveur.put("/produit/:_id", Produits.modifier_Category);
-  serveur.delete("/produit/:_id", Produits.delete_Category);
+  serveur.get("/produit/:_id", Produits.details_Produits);
+  serveur.post("/produit", upload_produit, Produits.ajouter_Produits);
+  serveur.put("/produit/:_id", Produits.modifier_Produits);
+  serveur.delete("/produit/:_id", Produits.delete_Produits);
+  serveur.get("/filterByCategory/:categorie_id", Produits.filterByCategory);
+  serveur.post("/filterAll", Produits.filterAll);
+  //API Commande
+  const Commande = require("./Controllers/commande.controllers");
+  serveur.get("/commande", Commande.afficher);
+  serveur.get("/commande/:_id", Commande.details_commande);
+  serveur.post("/commande", Commande.ajouter_Commande);
+  serveur.put("/commande/:_id", Commande.modifier_Commande);
+  serveur.delete("/commande/:_id", Commande.delete_Commande);
+  serveur.put("/modifier_etat/:_id/:etat", Commande.modier_etat);
 };
